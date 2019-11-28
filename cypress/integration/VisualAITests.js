@@ -5,7 +5,7 @@ beforeEach(() => {
         browser: {width: 1920, height: 1080},
         eyesTimeout: 180000,
     });
-    cy.visit('https://demo.applitools.com/hackathon.html');
+    cy.visit('https://demo.applitools.com/hackathonV2.html');
 });
 
 afterEach(() => {
@@ -22,7 +22,7 @@ function login() {
     cy.get('#log-in')
         .click();
     cy.location('href')
-        .should('include', 'hackathonApp.html');
+        .should('include', 'hackathonAppV2.html');
 }
 
 describe('Login Page UI Elements Test', () => {
@@ -81,7 +81,7 @@ describe('Table Sort Test', () => {
         cy.get('#log-in')
             .click();
         cy.location('href')
-            .should('include', 'hackathonApp.html');
+            .should('include', 'hackathonAppV2.html');
         cy.get('#amount').click();
         cy.eyesCheckWindow('Transaction Table order by amount asc')
     });
@@ -107,7 +107,7 @@ describe('Canvas Chart Test', () => {
 describe('Dynamic Content Test', () => {
 
     it('should render ads on the page', function () {
-        cy.visit('https://demo.applitools.com/hackathon.html?showAd=true');
+        cy.visit('https://demo.applitools.com/hackathonV2.html?showAd=true');
         login();
         cy.eyesCheckWindow('Dashboard with ADs on page');
     });
