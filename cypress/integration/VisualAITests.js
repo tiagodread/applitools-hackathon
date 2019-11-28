@@ -102,3 +102,12 @@ describe('Canvas Chart Test', () => {
         cy.eyesCheckWindow('Expenses and Forecasts Comparison (next year) Page ')
     });
 });
+
+describe('Dynamic Content Test', () => {
+
+    it('should render ads on the page', function () {
+        cy.visit('https://demo.applitools.com/hackathon.html?showAd=true');
+        login();
+        cy.eyesCheckWindow('Dashboard with ADs on page');
+    });
+});
