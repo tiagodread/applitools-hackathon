@@ -1,1 +1,6 @@
+# ide
 .idea
+
+# cypress
+cypress/videos
+cypress/screenshots
