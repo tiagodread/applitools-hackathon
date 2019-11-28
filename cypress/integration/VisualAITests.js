@@ -58,20 +58,17 @@ describe('Data-Driven Test', () => {
 });
 
 describe('Table Sort Test', () => {
-
-    cy.visit('https://demo.applitools.com/hackathon.html');
-    cy.get('#username')
-        .type('Tiago');
-
-    cy.get('#password')
-        .type('Tiago');
-
-    cy.get('#log-in')
-        .click();
-    cy.location('href')
-        .should('include', 'hackathonApp.html');
-
     it('should order the Transaction table by Amounts ascending', function () {
+        cy.get('#username')
+            .type('Tiago');
+
+        cy.get('#password')
+            .type('Tiago');
+
+        cy.get('#log-in')
+            .click();
+        cy.location('href')
+            .should('include', 'hackathonApp.html');
         cy.get('#amount').click();
         cy.eyesCheckWindow('Transaction Table order by amount asc')
     });
