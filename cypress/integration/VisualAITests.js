@@ -99,6 +99,7 @@ describe('Canvas Chart Test', () => {
         login();
         cy.get('#showExpensesChart').click();
         cy.get('#addDataset').click();
+        cy.wait(3000);
         cy.eyesCheckWindow('Expenses and Forecasts Comparison (next year) Page ')
     });
 });
