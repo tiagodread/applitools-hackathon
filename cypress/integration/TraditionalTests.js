@@ -95,9 +95,34 @@ describe('Table Sort Test', () => {
     beforeEach(() => {
 
         cy.visit('https://demo.applitools.com/hackathon.html')
+        cy.get('#username')
+            .type('Tiago');
+
+        cy.get('#password')
+            .type('Tiago');
+
+        cy.get('#log-in')
+            .click();
+        cy.location('href')
+            .should('include', 'hackathonApp.html');
     });
 
     it('should order the Transaction table by Amounts ascending', function () {
+        cy.get('#amount').click();
+
+        const amountSorted = ['- 320.00 USD', '- 244.00 USD', '+ 17.99 USD', '+ 340.00 USD', '+ 952.23 USD', '+ 1,250.00 USD'];
+        cy.get('#transactionsTable>tbody>tr>.text-right>span')
+            .should(($elements) => {
+                const elementText = $elements.toArray().map(el => el.innerText);
+                expect(elementText).to.deep.eq(amountSorted)
+            });
+    });
+});
+
+describe('Canvas Chart Test', () => {
+    beforeEach(() => {
+
+        cy.visit('https://demo.applitools.com/hackathon.html')
         cy.get('#username')
             .type('Tiago');
 
@@ -109,14 +134,47 @@ describe('Table Sort Test', () => {
         cy.location('href')
             .should('include', 'hackathonApp.html');
 
-        cy.get('#amount').click();
+        cy.get('#showExpensesChart').click()
+    });
 
-        const amountSorted = ['- 320.00 USD', '- 244.00 USD', '+ 17.99 USD', '+ 340.00 USD', '+ 952.23 USD', '+ 1,250.00 USD'];
-        cy.get('#transactionsTable>tbody>tr>.text-right>span')
-            .should(($elements) => {
-                const elementText = $elements.toArray().map(el => el.innerText);
-                expect(elementText).to.deep.eq(amountSorted)
-            });
+    it('should render the chart on the page', function () {
+        cy.get('#canvas')
+    });
+
+    it('should render data for the next year option', function () {
+        cy.get('#addDataset')
+    });
+
+    it('should Validate that the bar chart and representing that data (number of bars and their heights). ', function () {
+        // This scenario isn't possible to implement in traditional way and/or it'll cost long time to do it.
     });
 });
+
+describe('Dynamic Content Test', () => {
+    beforeEach(() => {
+
+        cy.visit('https://demo.applitools.com/hackathon.html?showAd=true');
+        cy.get('#username')
+            .type('Tiago');
+
+        cy.get('#password')
+            .type('Tiago');
+
+        cy.get('#log-in')
+            .click();
+        cy.location('href')
+            .should('include', 'hackathonApp.html');
+    });
+
+    it('should render ads on the page', function () {
+        cy.get('#flashSale')
+            .get('#flashSale2')
+    });
+
+    it('should identify visual change on ads', function () {
+        // This scenario isn't possible to implement in traditional way, maybe using applitools or percy
+    });
+});
+
+
 
