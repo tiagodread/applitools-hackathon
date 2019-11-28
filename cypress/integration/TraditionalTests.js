@@ -1,8 +1,21 @@
-describe('Login Page UI Elements Test', () => {
-    beforeEach(() => {
+beforeEach(() => {
+    cy.visit('https://demo.applitools.com/hackathon.html')
+});
 
-        cy.visit('https://demo.applitools.com/hackathon.html')
-    });
+function login() {
+    cy.get('#username')
+        .type('Tiago');
+
+    cy.get('#password')
+        .type('Tiago');
+
+    cy.get('#log-in')
+        .click();
+    cy.location('href')
+        .should('include', 'hackathonApp.html');
+}
+
+describe('Login Page UI Elements Test', () => {
 
     it('should render the form title on the page', function () {
         cy.get('.auth-header')
@@ -39,16 +52,12 @@ describe('Login Page UI Elements Test', () => {
 });
 
 describe('Data-Driven Test', () => {
-    beforeEach(() => {
-
-        cy.visit('https://demo.applitools.com/hackathon.html')
-    });
 
     it('should render an error message logging without username and password', function () {
         cy.get('#log-in')
             .click();
         cy.get('.alert-warning')
-            .contains('Both Username and Password must be present')
+            .contains('Both Username and Password must be present');
         cy.location('href')
             .should('include', 'hackathon.html')
     });
@@ -60,7 +69,7 @@ describe('Data-Driven Test', () => {
         cy.get('#log-in')
             .click();
         cy.get('.alert-warning')
-            .contains('Password must be present')
+            .contains('Password must be present');
         cy.location('href')
             .should('include', 'hackathon.html')
     });
@@ -72,7 +81,7 @@ describe('Data-Driven Test', () => {
         cy.get('#log-in')
             .click();
         cy.get('.alert-warning')
-            .contains('Username must be present')
+            .contains('Username must be present');
         cy.location('href')
             .should('include', 'hackathon.html')
     });
@@ -92,22 +101,9 @@ describe('Data-Driven Test', () => {
 });
 
 describe('Table Sort Test', () => {
-    beforeEach(() => {
-
-        cy.visit('https://demo.applitools.com/hackathon.html')
-        cy.get('#username')
-            .type('Tiago');
-
-        cy.get('#password')
-            .type('Tiago');
-
-        cy.get('#log-in')
-            .click();
-        cy.location('href')
-            .should('include', 'hackathonApp.html');
-    });
 
     it('should order the Transaction table by Amounts ascending', function () {
+        login();
         cy.get('#amount').click();
 
         const amountSorted = ['- 320.00 USD', '- 244.00 USD', '+ 17.99 USD', '+ 340.00 USD', '+ 952.23 USD', '+ 1,250.00 USD'];
@@ -120,28 +116,16 @@ describe('Table Sort Test', () => {
 });
 
 describe('Canvas Chart Test', () => {
-    beforeEach(() => {
-
-        cy.visit('https://demo.applitools.com/hackathon.html')
-        cy.get('#username')
-            .type('Tiago');
-
-        cy.get('#password')
-            .type('Tiago');
-
-        cy.get('#log-in')
-            .click();
-        cy.location('href')
-            .should('include', 'hackathonApp.html');
-
-        cy.get('#showExpensesChart').click()
-    });
 
     it('should render the chart on the page', function () {
+        login();
+        cy.get('#showExpensesChart').click();
         cy.get('#canvas')
     });
 
     it('should render data for the next year option', function () {
+        login();
+        cy.get('#showExpensesChart').click();
         cy.get('#addDataset')
     });
 
@@ -151,22 +135,10 @@ describe('Canvas Chart Test', () => {
 });
 
 describe('Dynamic Content Test', () => {
-    beforeEach(() => {
-
-        cy.visit('https://demo.applitools.com/hackathon.html?showAd=true');
-        cy.get('#username')
-            .type('Tiago');
-
-        cy.get('#password')
-            .type('Tiago');
-
-        cy.get('#log-in')
-            .click();
-        cy.location('href')
-            .should('include', 'hackathonApp.html');
-    });
 
     it('should render ads on the page', function () {
+        cy.visit('https://demo.applitools.com/hackathon.html?showAd=true');
+        login();
         cy.get('#flashSale')
             .get('#flashSale2')
     });
@@ -175,6 +147,3 @@ describe('Dynamic Content Test', () => {
         // This scenario isn't possible to implement in traditional way, maybe using applitools or percy
     });
 });
-
-
-
