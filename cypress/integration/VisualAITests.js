@@ -12,6 +12,19 @@ afterEach(() => {
     cy.eyesClose();
 });
 
+function login() {
+    cy.get('#username')
+        .type('Tiago');
+
+    cy.get('#password')
+        .type('Tiago');
+
+    cy.get('#log-in')
+        .click();
+    cy.location('href')
+        .should('include', 'hackathonApp.html');
+}
+
 describe('Login Page UI Elements Test', () => {
 
     it('should render the page', function () {
@@ -71,5 +84,21 @@ describe('Table Sort Test', () => {
             .should('include', 'hackathonApp.html');
         cy.get('#amount').click();
         cy.eyesCheckWindow('Transaction Table order by amount asc')
+    });
+});
+
+describe('Canvas Chart Test', () => {
+
+    it('should render the chart on the page', function () {
+        login();
+        cy.get('#showExpensesChart').click();
+        cy.eyesCheckWindow('Expenses and Forecasts Comparison Page ')
+    });
+
+    it('should render data for the next year option', function () {
+        login();
+        cy.get('#showExpensesChart').click();
+        cy.get('#addDataset').click();
+        cy.eyesCheckWindow('Expenses and Forecasts Comparison (next year) Page ')
     });
 });
