@@ -50,6 +50,7 @@ $ npm install
 
 3- Run
 ```
+$ export APPLITOOLS_API_KEY=DU1rUARVJEqgrrUGQFeLG9nsCVuni5n980czZBB24AfU110
 $ npm run test
 ```
 
